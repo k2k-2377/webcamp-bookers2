@@ -36,6 +36,22 @@
               </td>
               <td class="book-title"><%= link_to book.title, book_path(book.id) %></td>
               <td class="book-body"><%= book.body %></td>
+              <td>
+                <% if book.favorited_by?(current_user) %>
+                  <p>
+                    <%= link_to book_favorites_path(book), class: "fa fa-heart heart-after", method: :delete do %>
+                      <%= book.favorites.count %>
+                    <% end %>
+                  </p>
+                  <% else %>
+                  <p>
+                    <%= link_to book_favorites_path(book), class: "far fa-heart", method: :post do %>
+                      <%= book.favorites.count %>
+                    <% end %>
+                  </p>
+                <% end %>
+              </td>
+              <td class="comments">コメント数：<%= book.book_comments.count %></td>
             </tr>
           <% end %>
         </tbody>
